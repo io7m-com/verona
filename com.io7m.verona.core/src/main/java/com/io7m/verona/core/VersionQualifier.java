@@ -22,7 +22,6 @@ import java.util.regex.Pattern;
 
 import static java.lang.Integer.compareUnsigned;
 import static java.lang.Integer.parseUnsignedInt;
-import static java.util.regex.Pattern.CASE_INSENSITIVE;
 
 /**
  * A version number qualifier.
