@@ -34,7 +34,7 @@ public record VersionQualifier(
   implements Comparable<VersionQualifier>
 {
   private static final Pattern VALID_QUALIFIER =
-    Pattern.compile("[A-Za-z][A-Za-z_0-9\\.]{0,254}");
+    Pattern.compile("[A-Za-z0-9\\-]+(\\.[A-Za-z0-9\\-]+)*");
 
   private static final Pattern IS_NUMERIC =
     Pattern.compile("[0-9]+");
