@@ -249,4 +249,91 @@ public final class VersionTest
     final var q = v.qualifier().get();
     assertEquals(0, q.compareTo(q));
   }
+
+  /**
+   * @return A set of invalid version tests
+   */
+
+  @TestFactory
+  public Stream<DynamicTest> testInvalidOSGiVersions()
+  {
+    return Stream.of(
+      "",
+      "1",
+      "1.0",
+      "1.a",
+      "1.0.0-",
+      "4294967296.0.0",
+      "0.4294967296.0",
+      "0.0.4294967296",
+      "1.0.0-β",
+      "v1.2.3",
+      "1.0.0-SNAPSHOT",
+      "1.0.0-alpha",
+      "1.0.0-alpha.1",
+      "1.0.0-alpha.beta",
+      "1.0.0-beta",
+      "1.0.0-beta.2",
+      "1.0.0-beta.11",
+      "1.0.0-rc.1",
+      "1.0.0-0.3.7",
+      "1.0.0-x.7.z.92",
+      "1.0.0-x-y-z.-"
+    ).map(VersionTest::invalidOSGiVersionTestOf);
+  }
+
+  /**
+   * @return A set of valid version tests
+   */
+
+  @TestFactory
+  public Stream<DynamicTest> testValidOSGiVersions()
+  {
+    return Stream.of(
+      "1.0.0",
+      "1.0.0.SNAPSHOT",
+      "1.0.0.alpha",
+      "1.0.0.alpha.1",
+      "1.0.0.alpha.beta",
+      "1.0.0.beta",
+      "1.0.0.beta.2",
+      "1.0.0.beta.11",
+      "1.0.0.rc.1",
+      "1.0.0",
+      "1.0.0.0.3.7",
+      "1.0.0.x.7.z.92",
+      "1.0.0.x-y-z.-"
+    ).map(VersionTest::validOSGiVersionTestOf);
+  }
+
+  private static DynamicTest invalidOSGiVersionTestOf(
+    final String text)
+  {
+    return DynamicTest.dynamicTest(
+      "testInvalidVersion_%s".formatted(text),
+      () -> {
+        final var ex =
+          assertThrows(VersionException.class, () -> {
+            VersionParser.parseOSGi(text);
+          });
+        ex.printStackTrace(System.err);
+      });
+  }
+
+  private static DynamicTest validOSGiVersionTestOf(
+    final String text)
+  {
+    return DynamicTest.dynamicTest(
+      "testValidVersion_%s".formatted(text),
+      () -> {
+        final var p0 = VersionParser.parseOSGi(text);
+        final var p1 = VersionParser.parseOSGi(text);
+        assertEquals(p0, p1);
+        assertEquals(p0, p0);
+        assertEquals(p0.hashCode(), p1.hashCode());
+        assertEquals(p0.toString(), p1.toString());
+        assertEquals(0, p0.compareTo(p1));
+        assertNotEquals(p0, Integer.valueOf(23));
+      });
+  }
 }

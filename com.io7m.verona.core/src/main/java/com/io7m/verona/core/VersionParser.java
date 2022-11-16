@@ -31,6 +31,9 @@ public final class VersionParser
   private static final Pattern VERSION_TEXT =
     Pattern.compile("([0-9]+)\\.([0-9]+)\\.([0-9]+)(-(.+))?");
 
+  private static final Pattern VERSION_OSGI_TEXT =
+    Pattern.compile("([0-9]+)\\.([0-9]+)\\.([0-9]+)(\\.(.+))?");
+
   private VersionParser()
   {
 
@@ -79,6 +82,52 @@ public final class VersionParser
     throw new VersionException(
       "Version text '%s' must match the pattern '%s'"
         .formatted(text, VERSION_TEXT)
+    );
+  }
+
+  /**
+   * Parse an OSGi style version number.
+   *
+   * @param text The version text
+   *
+   * @return The parsed version
+   *
+   * @throws VersionException On errors
+   */
+
+  public static Version parseOSGi(
+    final String text)
+    throws VersionException
+  {
+    final var matcher = VERSION_OSGI_TEXT.matcher(text);
+    if (matcher.matches()) {
+      try {
+        final var qualifierText = matcher.group(5);
+        final Optional<VersionQualifier> qualifier;
+        if (qualifierText != null) {
+          qualifier = Optional.of(new VersionQualifier(qualifierText));
+        } else {
+          qualifier = Optional.empty();
+        }
+
+        return new Version(
+          parseUnsignedInt(matcher.group(1)),
+          parseUnsignedInt(matcher.group(2)),
+          parseUnsignedInt(matcher.group(3)),
+          qualifier
+        );
+      } catch (final Exception e) {
+        throw new VersionException(
+          "Version text '%s' cannot be parsed: %s"
+            .formatted(text, e.getMessage()),
+          e
+        );
+      }
+    }
+
+    throw new VersionException(
+      "Version text '%s' must match the pattern '%s'"
+        .formatted(text, VERSION_OSGI_TEXT)
     );
   }
 }
