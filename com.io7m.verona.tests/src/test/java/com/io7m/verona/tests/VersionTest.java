@@ -23,9 +23,7 @@ import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 
-import java.text.ParseException;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -328,6 +326,97 @@ public final class VersionTest
       () -> {
         final var p0 = VersionParser.parseOSGi(text);
         final var p1 = VersionParser.parseOSGi(text);
+        assertEquals(p0, p1);
+        assertEquals(p0, p0);
+        assertEquals(p0.hashCode(), p1.hashCode());
+        assertEquals(p0.toString(), p1.toString());
+        assertEquals(0, p0.compareTo(p1));
+        assertNotEquals(p0, Integer.valueOf(23));
+      });
+  }
+
+
+  /**
+   * @return A set of invalid version tests
+   */
+
+  @TestFactory
+  public Stream<DynamicTest> testInvalidLaxVersions()
+  {
+    return Stream.of(
+      "",
+      "1.0.0-",
+      "4294967296.0.0",
+      "0.4294967296.0",
+      "0.0.4294967296",
+      "1.0.0-β",
+      "v1.2.3"
+    ).map(VersionTest::invalidLaxVersionTestOf);
+  }
+
+  /**
+   * @return A set of valid version tests
+   */
+
+  @TestFactory
+  public Stream<DynamicTest> testValidLaxVersions()
+  {
+    return Stream.of(
+      "1.0.0",
+      "1.0.0.SNAPSHOT",
+      "1.0.0.alpha",
+      "1.0.0.alpha.1",
+      "1.0.0.alpha.beta",
+      "1.0.0.beta",
+      "1.0.0.beta.2",
+      "1.0.0.beta.11",
+      "1.0.0.rc.1",
+      "1.0.0",
+      "1.0.0.0.3.7",
+      "1.0.0.x.7.z.92",
+      "1.0.0.x-y-z.-",
+      "1.0.0",
+      "1.0.0.SNAPSHOT",
+      "1.0.0.alpha",
+      "1.0.0.alpha.1",
+      "1.0.0.alpha.beta",
+      "1.0.0.beta",
+      "1.0.0.beta.2",
+      "1.0.0.beta.11",
+      "1.0.0.rc.1",
+      "1.0.0",
+      "1.0.0.0.3.7",
+      "1.0.0.x.7.z.92",
+      "1.0.0.x-y-z.-",
+      "1.0",
+      "1.0-x",
+      "1",
+      "1-x"
+    ).map(VersionTest::validLaxVersionTestOf);
+  }
+
+  private static DynamicTest invalidLaxVersionTestOf(
+    final String text)
+  {
+    return DynamicTest.dynamicTest(
+      "testInvalidVersion_%s".formatted(text),
+      () -> {
+        final var ex =
+          assertThrows(VersionException.class, () -> {
+            VersionParser.parseLax(text);
+          });
+        ex.printStackTrace(System.err);
+      });
+  }
+
+  private static DynamicTest validLaxVersionTestOf(
+    final String text)
+  {
+    return DynamicTest.dynamicTest(
+      "testValidVersion_%s".formatted(text),
+      () -> {
+        final var p0 = VersionParser.parseLax(text);
+        final var p1 = VersionParser.parseLax(text);
         assertEquals(p0, p1);
         assertEquals(p0, p0);
         assertEquals(p0.hashCode(), p1.hashCode());
