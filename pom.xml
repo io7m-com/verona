@@ -96,12 +96,12 @@
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
-        <version>5.10.0-M1</version>
+        <version>5.10.1</version>
       </dependency>
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.10.0-M1</version>
+        <version>5.10.1</version>
       </dependency>
       <dependency>
         <groupId>com.io7m.primogenitor</groupId>
@@ -111,12 +111,12 @@
       <dependency>
         <groupId>net.jqwik</groupId>
         <artifactId>jqwik-api</artifactId>
-        <version>1.7.3</version>
+        <version>1.8.2</version>
       </dependency>
       <dependency>
         <groupId>net.jqwik</groupId>
         <artifactId>jqwik-engine</artifactId>
-        <version>1.7.3</version>
+        <version>1.8.2</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
