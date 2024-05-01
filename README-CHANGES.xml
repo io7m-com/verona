@@ -6,6 +6,6 @@
     </c:release>
   </c:releases>
   <c:ticket-systems>
-    <c:ticket-system default="true" id="com.github.io7m.verona" url="https://www.github.com/io7m/verona"/>
+    <c:ticket-system default="true" id="com.github.io7m.verona" url="https://www.github.com/io7m-com/verona"/>
   </c:ticket-systems>
 </c:changelog>
