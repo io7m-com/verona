@@ -8,12 +8,12 @@
   <parent>
     <groupId>com.io7m.primogenitor</groupId>
     <artifactId>com.io7m.primogenitor.full</artifactId>
-    <version>7.5.0</version>
+    <version>8.2.0</version>
   </parent>
 
   <groupId>com.io7m.verona</groupId>
   <artifactId>com.io7m.verona</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 
   <packaging>pom</packaging>
   <name>com.io7m.verona</name>
@@ -26,7 +26,9 @@
   </modules>
 
   <properties>
+    <!-- Configuration. -->
     <io7m.api.previousVersion>1.0.0</io7m.api.previousVersion>
+    <io7m.java.targetJavaVersion>17</io7m.java.targetJavaVersion>
   </properties>
 
   <licenses>
@@ -37,9 +39,9 @@
   </licenses>
 
   <scm>
-    <url>https://www.github.com/io7m/verona</url>
-    <connection>scm:git:https://github.com/io7m/verona</connection>
-    <developerConnection>scm:git:https://github.com/io7m/verona</developerConnection>
+    <url>https://www.github.com/io7m-com/verona</url>
+    <connection>scm:git:https://www.github.com/io7m-com/verona</connection>
+    <developerConnection>scm:git:https://www.github.com/io7m-com/verona</developerConnection>
   </scm>
 
   <developers>
@@ -52,7 +54,7 @@
   </developers>
 
   <issueManagement>
-    <url>https://www.github.com/io7m/verona/issues</url>
+    <url>https://www.github.com/io7m-com/verona/issues</url>
     <system>GitHub Issues</system>
   </issueManagement>
 
@@ -74,7 +76,7 @@
 
   <ciManagement>
     <system>GitHub Actions</system>
-    <url>https://github.com/verona/actions</url>
+    <url>https://www.github.com/io7m-com/verona/actions</url>
   </ciManagement>
 
   <prerequisites>
@@ -96,27 +98,27 @@
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
-        <version>5.9.1</version>
+        <version>5.10.2</version>
       </dependency>
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.9.1</version>
+        <version>5.10.2</version>
       </dependency>
       <dependency>
         <groupId>com.io7m.primogenitor</groupId>
         <artifactId>com.io7m.primogenitor.support</artifactId>
-        <version>7.5.0</version>
+        <version>8.2.0</version>
       </dependency>
       <dependency>
         <groupId>net.jqwik</groupId>
         <artifactId>jqwik-api</artifactId>
-        <version>1.7.1</version>
+        <version>1.8.4</version>
       </dependency>
       <dependency>
         <groupId>net.jqwik</groupId>
         <artifactId>jqwik-engine</artifactId>
-        <version>1.7.1</version>
+        <version>1.8.4</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
