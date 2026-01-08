@@ -1,5 +1,5 @@
 /*
- * Copyright © 2023 Mark Raynsford <code@io7m.com> https://www.io7m.com
+ * Copyright © 2026 Mark Raynsford <code@io7m.com> https://www.io7m.com
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -14,28 +14,15 @@
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-import net.jqwik.api.providers.ArbitraryProvider;
-
 /**
- * Semantic versioning types (Test suite)
+ * Semantic versioning types (Arbitraries)
+ *
+ * @since 1.1.0
  */
 
-module com.io7m.verona.tests
-{
-  requires static org.osgi.annotation.bundle;
-  requires static org.osgi.annotation.versioning;
+@Export
+@Version("1.0.0")
+package com.io7m.verona.tests.arbitraries;
 
-  requires org.junit.jupiter.api;
-  requires org.junit.jupiter.engine;
-  requires org.junit.platform.commons;
-  requires org.junit.platform.engine;
-  requires org.junit.platform.launcher;
-
-  requires com.io7m.verona.core;
-  requires com.io7m.verona.tests.arbitraries;
-  requires net.jqwik.api;
-
-  uses ArbitraryProvider;
-
-  exports com.io7m.verona.tests;
-}
+import org.osgi.annotation.bundle.Export;
+import org.osgi.annotation.versioning.Version;

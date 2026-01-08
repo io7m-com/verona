@@ -1,5 +1,5 @@
 /*
- * Copyright © 2023 Mark Raynsford <code@io7m.com> https://www.io7m.com
+ * Copyright © 2026 Mark Raynsford <code@io7m.com> https://www.io7m.com
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -17,25 +17,23 @@
 import net.jqwik.api.providers.ArbitraryProvider;
 
 /**
- * Semantic versioning types (Test suite)
+ * Semantic versioning types (Arbitraries)
+ *
+ * @since 1.1.0
  */
 
-module com.io7m.verona.tests
+module com.io7m.verona.tests.arbitraries
 {
   requires static org.osgi.annotation.bundle;
   requires static org.osgi.annotation.versioning;
 
-  requires org.junit.jupiter.api;
-  requires org.junit.jupiter.engine;
-  requires org.junit.platform.commons;
-  requires org.junit.platform.engine;
-  requires org.junit.platform.launcher;
-
   requires com.io7m.verona.core;
-  requires com.io7m.verona.tests.arbitraries;
   requires net.jqwik.api;
 
-  uses ArbitraryProvider;
+  provides ArbitraryProvider with
+    com.io7m.verona.tests.arbitraries.VersionArb,
+    com.io7m.verona.tests.arbitraries.VersionQualifierArb
+    ;
 
-  exports com.io7m.verona.tests;
+  exports com.io7m.verona.tests.arbitraries;
 }
