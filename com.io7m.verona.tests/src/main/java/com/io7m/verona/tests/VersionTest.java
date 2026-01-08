@@ -19,6 +19,8 @@ package com.io7m.verona.tests;
 import com.io7m.verona.core.Version;
 import com.io7m.verona.core.VersionException;
 import com.io7m.verona.core.VersionParser;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
@@ -393,6 +395,28 @@ public final class VersionTest
       "1",
       "1-x"
     ).map(VersionTest::validLaxVersionTestOf);
+  }
+
+  @Property
+  public void testToStringParse(
+    final @ForAll Version version)
+    throws VersionException
+  {
+    assertEquals(
+      version,
+      VersionParser.parse(version.toString())
+    );
+  }
+
+  @Property
+  public void testToStringParseLax(
+    final @ForAll Version version)
+    throws VersionException
+  {
+    assertEquals(
+      version,
+      VersionParser.parseLax(version.toString())
+    );
   }
 
   private static DynamicTest invalidLaxVersionTestOf(
